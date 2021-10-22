@@ -26,6 +26,7 @@ public class AddProductTest {
         Mockito.when(request.getParameter("name")).thenReturn("product");
         Mockito.when(request.getParameter("price")).thenReturn("10");
         Mockito.when(response.getWriter()).thenReturn(printWriter);
+        Mockito.clearInvocations(response);
 
         servlet.doGet(request, response);
 
