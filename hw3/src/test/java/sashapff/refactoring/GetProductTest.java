@@ -12,23 +12,11 @@ import java.io.StringWriter;
 
 import static org.junit.Assert.assertEquals;
 
-public class GetProductTest {
+public class GetProductTest extends ServletTest {
 
     @Test
     public void testDoGet() throws IOException {
         GetProductsServlet servlet = new GetProductsServlet();
-
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(stringWriter);
-        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-        HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-
-        Mockito.when(response.getWriter()).thenReturn(printWriter);
-        Mockito.clearInvocations(response);
-
         servlet.doGet(request, response);
-
-        Mockito.verify(response).setContentType("text/html");
-        Mockito.verify(response).setStatus(HttpServletResponse.SC_OK);
     }
 }

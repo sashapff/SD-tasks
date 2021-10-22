@@ -11,24 +11,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class QueryTest {
+public class QueryTest extends ServletTest {
+    private void testTemplate(String command) throws IOException {
+        QueryServlet servlet = new QueryServlet();
+        Mockito.when(request.getParameter("command")).thenReturn(command);
+        servlet.doGet(request, response);
+    }
 
     @Test
-    public void testDoGet() throws IOException {
-        QueryServlet servlet = new QueryServlet();
+    public void testDoGetMax() throws IOException {
+        testTemplate("max");
+    }
 
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(stringWriter);
-        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-        HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+    @Test
+    public void testDoGetMin() throws IOException {
+        testTemplate("min");
+    }
 
-        Mockito.when(request.getParameter("command")).thenReturn("max");
-        Mockito.when(response.getWriter()).thenReturn(printWriter);
-        Mockito.clearInvocations(response);
+    @Test
+    public void testDoGetSum() throws IOException {
+        testTemplate("sum");
+    }
 
-        servlet.doGet(request, response);
-
-        Mockito.verify(response).setContentType("text/html");
-        Mockito.verify(response).setStatus(HttpServletResponse.SC_OK);
+    @Test
+    public void testDoGetCount() throws IOException {
+        testTemplate("count");
     }
 }
