@@ -1,8 +1,7 @@
-package sashapff.refactoring;
+package sashapff.refactoring.servlet;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import sashapff.refactoring.servlet.AddProductServlet;
 
 import java.io.IOException;
 

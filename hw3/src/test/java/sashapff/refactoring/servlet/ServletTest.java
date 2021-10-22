@@ -1,4 +1,4 @@
-package sashapff.refactoring;
+package sashapff.refactoring.servlet;
 
 import org.junit.After;
 import org.junit.Before;

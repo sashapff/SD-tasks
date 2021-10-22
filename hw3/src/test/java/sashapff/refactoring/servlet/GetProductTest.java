@@ -1,7 +1,6 @@
-package sashapff.refactoring;
+package sashapff.refactoring.servlet;
 
 import org.junit.Test;
-import sashapff.refactoring.servlet.GetProductsServlet;
 
 import java.io.IOException;
 
