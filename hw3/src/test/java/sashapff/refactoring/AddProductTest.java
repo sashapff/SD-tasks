@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AddProductTest extends ServletTest {
 
@@ -20,5 +21,6 @@ public class AddProductTest extends ServletTest {
         Mockito.when(request.getParameter("name")).thenReturn("product");
         Mockito.when(request.getParameter("price")).thenReturn("10");
         servlet.doGet(request, response);
+        assertTrue(stringWriter.toString().contains("OK"));
     }
 }
