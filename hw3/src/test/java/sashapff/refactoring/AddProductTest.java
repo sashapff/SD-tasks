@@ -1,4 +1,5 @@
 package sashapff.refactoring;
 
-public class Test {
+public class AddProductTest {
+
 }
