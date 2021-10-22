@@ -4,13 +4,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import sashapff.refactoring.servlet.AddProductServlet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AddProductTest extends ServletTest {
