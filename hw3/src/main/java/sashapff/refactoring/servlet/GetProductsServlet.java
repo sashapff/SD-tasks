@@ -16,25 +16,22 @@ public class GetProductsServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            database.executeQuery("SELECT * FROM PRODUCT", (resultSet) -> {
-                try {
-                    response.getWriter().println("<html><body>");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+        database.executeQuery("SELECT * FROM PRODUCT",
+                (resultSet) -> {
+                    try {
+                        response.getWriter().println("<html><body>");
 
-                    while (resultSet.next()) {
-                        String name = resultSet.getString("name");
-                        int price = resultSet.getInt("price");
-                        response.getWriter().println(name + "\t" + price + "</br>");
+                        while (resultSet.next()) {
+                            String name = resultSet.getString("name");
+                            long price = resultSet.getInt("price");
+                            response.getWriter().println(name + "\t" + price + "</br>");
+                        }
+                        response.getWriter().println("</body></html>");
+                    } catch (IOException | SQLException e) {
+                        e.printStackTrace();
                     }
-                    response.getWriter().println("</body></html>");
-                } catch (IOException | SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+                });
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);

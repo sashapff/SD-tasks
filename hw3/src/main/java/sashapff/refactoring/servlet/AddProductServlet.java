@@ -19,12 +19,7 @@ public class AddProductServlet extends HttpServlet {
         String name = request.getParameter("name");
         long price = Long.parseLong(request.getParameter("price"));
 
-        try {
-            database.executeUpdate("INSERT INTO PRODUCT " +
-                    "(NAME, PRICE) VALUES (\"" + name + "\"," + price + ")");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        database.addProduct(name, price);
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);

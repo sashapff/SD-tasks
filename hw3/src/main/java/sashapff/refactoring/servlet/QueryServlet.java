@@ -24,7 +24,7 @@ public class QueryServlet extends HttpServlet {
 
                 while (resultSet.next()) {
                     String name = resultSet.getString("name");
-                    int price = resultSet.getInt("price");
+                    long price = resultSet.getInt("price");
                     response.getWriter().println(name + "\t" + price + "</br>");
                 }
                 response.getWriter().println("</body></html>");
@@ -42,7 +42,7 @@ public class QueryServlet extends HttpServlet {
 
                 while (resultSet.next()) {
                     String name = resultSet.getString("name");
-                    int price = resultSet.getInt("price");
+                    long price = resultSet.getInt("price");
                     response.getWriter().println(name + "\t" + price + "</br>");
                 }
                 response.getWriter().println("</body></html>");
@@ -90,33 +90,18 @@ public class QueryServlet extends HttpServlet {
         String command = request.getParameter("command");
 
         if ("max".equals(command)) {
-            try {
-                database.executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1",
-                        buildMaxConsumer(response));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            database.executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1",
+                    buildMaxConsumer(response));
+
         } else if ("min".equals(command)) {
-            try {
-                database.executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1",
-                        buildMinConsumer(response));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            database.executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1",
+                    buildMinConsumer(response));
         } else if ("sum".equals(command)) {
-            try {
-                database.executeQuery("SELECT SUM(price) FROM PRODUCT",
-                        buildSumConsumer(response));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            database.executeQuery("SELECT SUM(price) FROM PRODUCT",
+                    buildSumConsumer(response));
         } else if ("count".equals(command)) {
-            try {
-                database.executeQuery("SELECT COUNT(*) FROM PRODUCT",
-                        buildCountConsumer(response));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            database.executeQuery("SELECT COUNT(*) FROM PRODUCT",
+                    buildCountConsumer(response));
         } else {
             response.getWriter().println("Unknown command: " + command);
         }

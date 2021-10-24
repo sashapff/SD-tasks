@@ -23,7 +23,7 @@ public class GetProductTest extends ServletTest {
 
     @Test
     public void testGetProduct() throws IOException, SQLException {
-        addProductToTable("product", "10");
+        database.addProduct("product", 10);
         servlet.doGet(request, response);
         verifyResponse();
         assertEquals(
@@ -36,9 +36,9 @@ public class GetProductTest extends ServletTest {
 
     @Test
     public void testGetManyProducts() throws IOException, SQLException {
-        addProductToTable("productOne", "10");
-        addProductToTable("productTwo", "11");
-        addProductToTable("productThree", "28");
+        database.addProduct("productOne", 10);
+        database.addProduct("productTwo", 11);
+        database.addProduct("productThree", 28);
         servlet.doGet(request, response);
         verifyResponse();
         assertEquals(

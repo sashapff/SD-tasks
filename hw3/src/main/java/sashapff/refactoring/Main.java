@@ -10,7 +10,7 @@ import sashapff.refactoring.servlet.QueryServlet;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Database database = new Database();
+        Database database = new Database("jdbc:sqlite:test.db");
         database.createProductTable();
 
         Server server = new Server(8081);

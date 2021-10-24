@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.SQLException;
 
 public class ServletTest {
     public static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -21,13 +20,13 @@ public class ServletTest {
     protected StringWriter stringWriter = new StringWriter();
     private final PrintWriter printWriter = new PrintWriter(stringWriter);
 
-    protected static final Database database = new Database();
+    protected static final Database database = new Database("jdbc:sqlite:test.db");
 
-    private static void clearProductTable() throws SQLException {
+    private static void clearProductTable() {
         database.executeUpdate("DELETE FROM PRODUCT");
     }
 
-    private static void dropProductTable() throws SQLException {
+    private static void dropProductTable() {
         database.executeUpdate("DROP TABLE IF EXISTS PRODUCT");
     }
 
@@ -36,17 +35,13 @@ public class ServletTest {
         Mockito.verify(response).setStatus(HttpServletResponse.SC_OK);
     }
 
-    protected void addProductToTable(String name, String price) throws SQLException {
-        database.addProduct(name, price);
-    }
-
     @BeforeClass
-    public static void beforeClass() throws SQLException {
+    public static void beforeClass() {
         database.createProductTable();
     }
 
     @Before
-    public void before() throws IOException, SQLException {
+    public void before() throws IOException {
         Mockito.when(response.getWriter()).thenReturn(printWriter).thenReturn(printWriter).thenReturn(printWriter);
         Mockito.clearInvocations(response);
 
@@ -54,12 +49,12 @@ public class ServletTest {
     }
 
     @After
-    public void after() throws SQLException, IOException {
+    public void after() {
         clearProductTable();
     }
 
     @AfterClass
-    public static void afterClass() throws SQLException {
+    public static void afterClass() {
         dropProductTable();
     }
 }

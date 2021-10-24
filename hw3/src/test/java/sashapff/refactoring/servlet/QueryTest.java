@@ -45,7 +45,7 @@ public class QueryTest extends ServletTest {
     }
 
     private void addProduct() throws SQLException {
-        addProductToTable("product", "10");
+        database.addProduct("product", 10);
     }
 
     @Test
@@ -73,9 +73,9 @@ public class QueryTest extends ServletTest {
     }
 
     private void addProducts() throws SQLException {
-        addProductToTable("productOne", "10");
-        addProductToTable("productTwo", "11");
-        addProductToTable("productThree", "28");
+        database.addProduct("productOne", 10);
+        database.addProduct("productTwo", 11);
+        database.addProduct("productThree", 28);
     }
 
     @Test
