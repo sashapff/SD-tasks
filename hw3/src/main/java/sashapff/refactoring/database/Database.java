@@ -1,7 +1,5 @@
 package sashapff.refactoring.database;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.*;
 import java.util.function.Consumer;
 
