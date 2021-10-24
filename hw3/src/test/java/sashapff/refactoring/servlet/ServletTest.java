@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
 
 public class ServletTest {
     public static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);

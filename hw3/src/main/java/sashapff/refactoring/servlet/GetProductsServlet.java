@@ -1,11 +1,13 @@
 package sashapff.refactoring.servlet;
 
 import sashapff.refactoring.database.Database;
+import sashapff.refactoring.entity.Product;
 import sashapff.refactoring.html.HtmlBuilder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class GetProductsServlet extends HttpServlet {
     private final Database database;
@@ -17,10 +19,7 @@ public class GetProductsServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        database.executeQuery("SELECT * FROM PRODUCT",
-                resultSet -> {
-                    htmlBuilder.buildGetResponse(response, resultSet);
-                });
-
+        List<Product> products = database.getProducts();
+        htmlBuilder.buildGetResponse(response, products);
     }
 }

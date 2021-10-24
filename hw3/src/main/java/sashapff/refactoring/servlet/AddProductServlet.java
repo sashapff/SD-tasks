@@ -16,12 +16,13 @@ public class AddProductServlet extends HttpServlet {
         this.database = database;
     }
 
+    private Product getProduct(HttpServletRequest request) {
+        return new Product(request.getParameter("name"), Long.parseLong(request.getParameter("price")));
+    }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
-        long price = Long.parseLong(request.getParameter("price"));
-
-        database.addProduct(new Product(name, price));
+        database.addProduct(getProduct(request));
         htmlBuilder.buildOkResponse(response);
     }
 }
