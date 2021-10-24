@@ -48,15 +48,14 @@ public class HtmlBuilder {
                 new StringBuilder("<h1>Product with min price: </h1>\n").append(buildProductsResult(products)));
     }
 
-
-    public void buildSumResponse(HttpServletResponse response, long answer) {
+    public void buildSumResponse(HttpServletResponse response, long sum) {
         buildHeadersResponse(response,
-                new StringBuilder("Summary price: \n").append(answer).append('\n'));
+                new StringBuilder("Summary price: \n").append(sum).append('\n'));
     }
 
-    public void buildCountResponse(HttpServletResponse response, long answer) {
+    public void buildCountResponse(HttpServletResponse response, long count) {
         buildHeadersResponse(response,
-                new StringBuilder("Number of products: \n").append(answer).append('\n'));
+                new StringBuilder("Number of products: \n").append(count).append('\n'));
     }
 
     public void buildErrorResponse(HttpServletResponse response, String message) {

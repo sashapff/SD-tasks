@@ -19,7 +19,6 @@ public class GetProductsServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        List<Product> products = database.getProducts();
-        htmlBuilder.buildGetResponse(response, products);
+        htmlBuilder.buildGetResponse(response, database.getProducts());
     }
 }

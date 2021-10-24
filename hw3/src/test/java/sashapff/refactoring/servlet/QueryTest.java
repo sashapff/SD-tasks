@@ -15,6 +15,7 @@ public class QueryTest extends ServletTest {
     private void testTemplate(String command, String body) throws IOException {
         Mockito.when(request.getParameter("command")).thenReturn(command);
         servlet.doGet(request, response);
+        verifyResponse();
 
         assertEquals(
                 "<html><body>\n" +
@@ -104,7 +105,7 @@ public class QueryTest extends ServletTest {
     }
 
     @Test
-    public void testUnknownCommand() throws IOException {
+    public void testUnknownCommand() {
         Mockito.when(request.getParameter("command")).thenReturn("unknown");
         servlet.doGet(request, response);
         assertEquals("Unknown command: unknown\n", stringWriter.toString());

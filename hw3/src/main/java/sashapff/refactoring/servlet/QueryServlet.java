@@ -24,19 +24,14 @@ public class QueryServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         String command = request.getParameter("command");
-
         if ("max".equals(command)) {
-            List<Product> products = database.findMaxPriceProduct();
-            htmlBuilder.buildMaxResponse(response, products);
+            htmlBuilder.buildMaxResponse(response, database.findMaxPriceProduct());
         } else if ("min".equals(command)) {
-            List<Product> products = database.findMinPriceProduct();
-            htmlBuilder.buildMinResponse(response, products);
+            htmlBuilder.buildMinResponse(response, database.findMinPriceProduct());
         } else if ("sum".equals(command)) {
-            long answer = database.getSum();
-            htmlBuilder.buildSumResponse(response, answer);
+            htmlBuilder.buildSumResponse(response, database.getSum());
         } else if ("count".equals(command)) {
-            long answer = database.getCount();
-            htmlBuilder.buildCountResponse(response, answer);
+            htmlBuilder.buildCountResponse(response, database.getCount());
         } else {
             htmlBuilder.buildErrorResponse(response, "Unknown command: " + command);
         }

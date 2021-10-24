@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.SQLException;
 
 public class ServletTest {
     public static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -22,14 +21,6 @@ public class ServletTest {
     private final PrintWriter printWriter = new PrintWriter(stringWriter);
 
     protected static final Database database = new Database("jdbc:sqlite:test.db");
-
-    private static void clearProductTable() {
-        database.executeUpdate("DELETE FROM PRODUCT");
-    }
-
-    private static void dropProductTable() {
-        database.executeUpdate("DROP TABLE IF EXISTS PRODUCT");
-    }
 
     protected void verifyResponse() {
         Mockito.verify(response).setContentType("text/html");
@@ -46,16 +37,16 @@ public class ServletTest {
         Mockito.when(response.getWriter()).thenReturn(printWriter).thenReturn(printWriter).thenReturn(printWriter);
         Mockito.clearInvocations(response);
 
-        clearProductTable();
+        database.clearProductTable();
     }
 
     @After
     public void after() {
-        clearProductTable();
+        database.clearProductTable();
     }
 
     @AfterClass
     public static void afterClass() {
-        dropProductTable();
+        database.dropProductTable();
     }
 }

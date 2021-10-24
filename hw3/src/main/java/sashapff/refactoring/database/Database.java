@@ -98,4 +98,12 @@ public class Database {
     public long getCount() {
         return executeQueryResult("SELECT COUNT(*) FROM PRODUCT");
     }
+
+    public void clearProductTable() {
+        executeUpdate("DELETE FROM PRODUCT");
+    }
+
+    public void dropProductTable() {
+        executeUpdate("DROP TABLE IF EXISTS PRODUCT");
+    }
 }
