@@ -1,6 +1,7 @@
 package sashapff.refactoring.servlet;
 
 import sashapff.refactoring.database.Database;
+import sashapff.refactoring.html.HtmlBuilder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,77 +12,26 @@ import java.util.function.Consumer;
 
 public class QueryServlet extends HttpServlet {
     private final Database database;
+    private final HtmlBuilder htmlBuilder = new HtmlBuilder();
 
     public QueryServlet(Database database) {
         this.database = database;
     }
 
     private Consumer<ResultSet> buildMaxConsumer(HttpServletResponse response) {
-        return resultSet -> {
-            try {
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with max price: </h1>");
-
-                while (resultSet.next()) {
-                    String name = resultSet.getString("name");
-                    long price = resultSet.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
-                }
-                response.getWriter().println("</body></html>");
-            } catch (IOException | SQLException e) {
-                e.printStackTrace();
-            }
-        };
+        return resultSet -> htmlBuilder.buildMaxResponse(response, resultSet);
     }
 
     private Consumer<ResultSet> buildMinConsumer(HttpServletResponse response) {
-        return resultSet -> {
-            try {
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with min price: </h1>");
-
-                while (resultSet.next()) {
-                    String name = resultSet.getString("name");
-                    long price = resultSet.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
-                }
-                response.getWriter().println("</body></html>");
-            } catch (IOException | SQLException e) {
-                e.printStackTrace();
-            }
-        };
+        return resultSet -> htmlBuilder.buildMinResponse(response, resultSet);
     }
 
     private Consumer<ResultSet> buildSumConsumer(HttpServletResponse response) {
-        return resultSet -> {
-            try {
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Summary price: ");
-
-                if (resultSet.next()) {
-                    response.getWriter().println(resultSet.getInt(1));
-                }
-                response.getWriter().println("</body></html>");
-            } catch (IOException | SQLException e) {
-                e.printStackTrace();
-            }
-        };
+        return resultSet -> htmlBuilder.buildSumResponse(response, resultSet);
     }
 
     private Consumer<ResultSet> buildCountConsumer(HttpServletResponse response) {
-        return resultSet -> {
-            try {
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Number of products: ");
-
-                if (resultSet.next()) {
-                    response.getWriter().println(resultSet.getInt(1));
-                }
-                response.getWriter().println("</body></html>");
-            } catch (IOException | SQLException e) {
-                e.printStackTrace();
-            }
-        };
+        return resultSet -> htmlBuilder.buildCountResponse(response, resultSet);
     }
 
 
@@ -103,11 +53,8 @@ public class QueryServlet extends HttpServlet {
             database.executeQuery("SELECT COUNT(*) FROM PRODUCT",
                     buildCountConsumer(response));
         } else {
-            response.getWriter().println("Unknown command: " + command);
+            htmlBuilder.buildErrorResponse(response, "Unknown command: " + command);
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 
 }

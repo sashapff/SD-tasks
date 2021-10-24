@@ -1,15 +1,15 @@
 package sashapff.refactoring.servlet;
 
 import sashapff.refactoring.database.Database;
+import sashapff.refactoring.html.HtmlBuilder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.*;
 
 public class GetProductsServlet extends HttpServlet {
     private final Database database;
+    private final HtmlBuilder htmlBuilder = new HtmlBuilder();
 
     public GetProductsServlet(Database database) {
         this.database = database;
@@ -17,23 +17,11 @@ public class GetProductsServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
+//        htmlBuilder.buildGetResponse(response, database.getProducts());
         database.executeQuery("SELECT * FROM PRODUCT",
-                (resultSet) -> {
-                    try {
-                        response.getWriter().println("<html><body>");
-
-                        while (resultSet.next()) {
-                            String name = resultSet.getString("name");
-                            long price = resultSet.getInt("price");
-                            response.getWriter().println(name + "\t" + price + "</br>");
-                        }
-                        response.getWriter().println("</body></html>");
-                    } catch (IOException | SQLException e) {
-                        e.printStackTrace();
-                    }
+                resultSet -> {
+                    htmlBuilder.buildGetResponse(response, resultSet);
                 });
 
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 }
