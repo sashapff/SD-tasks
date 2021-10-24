@@ -2,6 +2,7 @@ package sashapff.refactoring.servlet;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import sashapff.refactoring.entity.Product;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -45,7 +46,7 @@ public class QueryTest extends ServletTest {
     }
 
     private void addProduct() throws SQLException {
-        database.addProduct("product", 10);
+        database.addProduct(new Product("product", 10L));
     }
 
     @Test
@@ -73,9 +74,9 @@ public class QueryTest extends ServletTest {
     }
 
     private void addProducts() throws SQLException {
-        database.addProduct("productOne", 10);
-        database.addProduct("productTwo", 11);
-        database.addProduct("productThree", 28);
+        database.addProduct(new Product("productOne", 10L));
+        database.addProduct(new Product("productTwo", 11L));
+        database.addProduct(new Product("productThree", 28L));
     }
 
     @Test

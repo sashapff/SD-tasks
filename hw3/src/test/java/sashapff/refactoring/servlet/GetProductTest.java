@@ -1,6 +1,7 @@
 package sashapff.refactoring.servlet;
 
 import org.junit.Test;
+import sashapff.refactoring.entity.Product;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class GetProductTest extends ServletTest {
 
     @Test
     public void testGetProduct() throws IOException, SQLException {
-        database.addProduct("product", 10);
+        database.addProduct(new Product("product", 10L));
         servlet.doGet(request, response);
         verifyResponse();
         assertEquals(
@@ -36,9 +37,9 @@ public class GetProductTest extends ServletTest {
 
     @Test
     public void testGetManyProducts() throws IOException, SQLException {
-        database.addProduct("productOne", 10);
-        database.addProduct("productTwo", 11);
-        database.addProduct("productThree", 28);
+        database.addProduct(new Product("productOne", 10L));
+        database.addProduct(new Product("productTwo", 11L));
+        database.addProduct(new Product("productThree", 28L));
         servlet.doGet(request, response);
         verifyResponse();
         assertEquals(

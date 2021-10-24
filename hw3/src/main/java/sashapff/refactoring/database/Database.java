@@ -1,5 +1,7 @@
 package sashapff.refactoring.database;
 
+import sashapff.refactoring.entity.Product;
+
 import java.sql.*;
 import java.util.function.Consumer;
 
@@ -41,8 +43,8 @@ public class Database {
                 " PRICE          LONG     NOT NULL)");
     }
 
-    public void addProduct(String name, long price) {
+    public void addProduct(Product product) {
         executeUpdate("INSERT INTO PRODUCT " +
-                "(NAME, PRICE) VALUES (\"" + name + "\"," + price + ")");
+                "(NAME, PRICE) VALUES (\"" + product.getName() + "\"," + product.getPrice() + ")");
     }
 }

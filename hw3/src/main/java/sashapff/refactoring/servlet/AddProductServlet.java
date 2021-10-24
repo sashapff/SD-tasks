@@ -1,6 +1,7 @@
 package sashapff.refactoring.servlet;
 
 import sashapff.refactoring.database.Database;
+import sashapff.refactoring.entity.Product;
 import sashapff.refactoring.html.HtmlBuilder;
 
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,7 @@ public class AddProductServlet extends HttpServlet {
         String name = request.getParameter("name");
         long price = Long.parseLong(request.getParameter("price"));
 
-        database.addProduct(name, price);
+        database.addProduct(new Product(name, price));
         htmlBuilder.buildOkResponse(response);
     }
 }
