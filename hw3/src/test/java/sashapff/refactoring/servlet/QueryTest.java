@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 
 public class QueryTest extends ServletTest {
-    private final QueryServlet servlet = new QueryServlet();
+    private final QueryServlet servlet = new QueryServlet(database);
 
     private void testTemplate(String command, String body) throws IOException {
         Mockito.when(request.getParameter("command")).thenReturn(command);

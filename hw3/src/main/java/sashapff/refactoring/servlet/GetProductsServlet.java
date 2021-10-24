@@ -1,35 +1,37 @@
 package sashapff.refactoring.servlet;
 
+import sashapff.refactoring.database.Database;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class GetProductsServlet extends HttpServlet {
+    private final Database database;
+
+    public GetProductsServlet(Database database) {
+        this.database = database;
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-                Statement stmt = c.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
-                response.getWriter().println("<html><body>");
+            database.executeQuery("SELECT * FROM PRODUCT", (resultSet) -> {
+                try {
+                    response.getWriter().println("<html><body>");
 
-                while (rs.next()) {
-                    String name = rs.getString("name");
-                    int price = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    while (resultSet.next()) {
+                        String name = resultSet.getString("name");
+                        int price = resultSet.getInt("price");
+                        response.getWriter().println(name + "\t" + price + "</br>");
+                    }
+                    response.getWriter().println("</body></html>");
+                } catch (IOException | SQLException e) {
+                    e.printStackTrace();
                 }
-                response.getWriter().println("</body></html>");
-
-                rs.close();
-                stmt.close();
-            }
-
+            });
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

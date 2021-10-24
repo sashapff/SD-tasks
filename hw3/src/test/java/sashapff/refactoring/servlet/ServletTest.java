@@ -4,8 +4,8 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.mockito.Mock;
 import org.mockito.Mockito;
+import sashapff.refactoring.database.Database;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,29 +24,14 @@ public class ServletTest {
     protected StringWriter stringWriter = new StringWriter();
     private final PrintWriter printWriter = new PrintWriter(stringWriter);
 
-    private static void executeCommand(String command) throws SQLException {
-        String databaseUrl = "jdbc:sqlite:test.db";
-        try (Connection c = DriverManager.getConnection(databaseUrl)) {
-            Statement stmt = c.createStatement();
-
-            stmt.executeUpdate(command);
-            stmt.close();
-        }
-    }
-
-    private static void createProductTable() throws SQLException {
-        executeCommand("CREATE TABLE IF NOT EXISTS PRODUCT" +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " PRICE          INT     NOT NULL)");
-    }
+    protected static final Database database = new Database();
 
     private static void clearProductTable() throws SQLException {
-        executeCommand("DELETE FROM PRODUCT");
+        database.executeUpdate("DELETE FROM PRODUCT");
     }
 
     private static void dropProductTable() throws SQLException {
-        executeCommand("DROP TABLE IF EXISTS PRODUCT");
+        database.executeUpdate("DROP TABLE IF EXISTS PRODUCT");
     }
 
     protected void verifyResponse() {
@@ -55,18 +40,12 @@ public class ServletTest {
     }
 
     protected void addProductToTable(String name, String price) throws SQLException {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-            String sql = "INSERT INTO PRODUCT " +
-                    "(NAME, PRICE) VALUES (\"" + name + "\"," + price + ")";
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-            statement.close();
-        }
+        database.addProduct(name, price);
     }
 
     @BeforeClass
     public static void beforeClass() throws SQLException {
-        createProductTable();
+        database.createProductTable();
     }
 
     @Before

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 
 public class GetProductTest extends ServletTest {
-    private final GetProductsServlet servlet = new GetProductsServlet();
+    private final GetProductsServlet servlet = new GetProductsServlet(database);
 
     @Test
     public void testEmptyTable() throws IOException {

@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 public class AddProductTest extends ServletTest {
-    private final AddProductServlet servlet = new AddProductServlet();
+    private final AddProductServlet servlet = new AddProductServlet(database);
 
     @Test
     public void testAddProduct() throws IOException {
