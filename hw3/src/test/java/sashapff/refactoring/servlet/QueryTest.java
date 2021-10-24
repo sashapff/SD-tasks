@@ -101,4 +101,11 @@ public class QueryTest extends ServletTest {
         addProducts();
         testTemplate("count", "Number of products: \n3\n");
     }
+
+    @Test
+    public void testUnknownCommand() throws IOException {
+        Mockito.when(request.getParameter("command")).thenReturn("unknown");
+        servlet.doGet(request, response);
+        assertEquals("Unknown command: unknown\n", stringWriter.toString());
+    }
 }
