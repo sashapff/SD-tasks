@@ -1,4 +1,0 @@
-package geometry
-
-class Edge {
-}
