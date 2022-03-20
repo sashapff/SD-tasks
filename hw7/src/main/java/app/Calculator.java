@@ -5,7 +5,11 @@ public class Calculator {
     }
 
     private int increment(int a) {
-        return a + 1;
+        int res = 1;
+        for (int i = 0; i < a; i++) {
+            res += 1;
+        }
+        return res;
     }
 
     private int decrement(int a) {
@@ -13,7 +17,7 @@ public class Calculator {
     }
 
     public void add(int a, int b) {
-        while (a > 0) {
+        while (b > 0) {
             a = increment(a);
             b = decrement(b);
         }

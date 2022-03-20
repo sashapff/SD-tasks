@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="http.UrlReaderWithStubServerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-10-18T07:46:23" hostname="sashapff-x" time="0.026">
+  <properties/>
+  <testcase name="readAsText" classname="http.UrlReaderWithStubServerTest" time="0.012"/>
+  <testcase name="readAsTextWithNotFoundError" classname="http.UrlReaderWithStubServerTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 18, 2021 10:46:23 AM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [0.0.0.0:32453]
+Oct 18, 2021 10:46:23 AM org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer-2] Started.
+Oct 18, 2021 10:46:23 AM org.glassfish.grizzly.http.server.NetworkListener shutdownNow
+INFO: Stopped listener bound to [0.0.0.0:32453]
+Oct 18, 2021 10:46:23 AM org.glassfish.grizzly.http.server.NetworkListener start
+INFO: Started listener bound to [0.0.0.0:32453]
+Oct 18, 2021 10:46:23 AM org.glassfish.grizzly.http.server.HttpServer start
+INFO: [HttpServer-3] Started.
+Oct 18, 2021 10:46:23 AM org.glassfish.grizzly.http.server.NetworkListener shutdownNow
+INFO: Stopped listener bound to [0.0.0.0:32453]
+]]></system-err>
+</testsuite>

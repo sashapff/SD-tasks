@@ -1,0 +1,20 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    modules = ['javafx.controls']
+}
+
+dependencies {
+    implementation("com.google.code.gson:gson:2.7")
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+}
