@@ -47,14 +47,20 @@ public class CatalogTest {
                 Map.of("id", "3",
                         "price", "100",
                         "currency", "EUR")))).thenReturn(Observable.just(Success.SUCCESS));
-    }
 
-    @Test
-    public void testUserGet() {
         when(findObservableUser.toObservable())
                 .thenReturn(Observable.just(new Document(
                         Map.of("id", "1",
                                 "currency", "EUR"))));
+        when(findObservableProduct.toObservable())
+                .thenReturn(Observable.just(new Document(
+                        Map.of("id", "1",
+                                "price", "1000",
+                                "currency", "EUR"))));
+    }
+
+    @Test
+    public void testUserGet() {
         when(request.getDecodedPath()).thenReturn("/user/get");
         when(request.getQueryParameters()).thenReturn(Map.of("id", List.of("1")));
         handler.makeRequest(request).toBlocking().getIterator().forEachRemaining(x ->
@@ -63,11 +69,6 @@ public class CatalogTest {
 
     @Test
     public void testGetProduct() {
-        when(findObservableProduct.toObservable())
-                .thenReturn(Observable.just(new Document(
-                        Map.of("id", "1",
-                                "price", "1000",
-                                "currency", "EUR"))));
         when(request.getDecodedPath()).thenReturn("/product/get");
         when(request.getQueryParameters()).thenReturn(Map.of("id", List.of("1")));
         handler.makeRequest(request).toBlocking().getIterator().forEachRemaining(x -> {
@@ -94,16 +95,6 @@ public class CatalogTest {
 
     @Test
     public void testGetProducts() {
-        when(findObservableUser.toObservable())
-                .thenReturn(Observable.just(new Document(
-                        Map.of("id", "1",
-                                "currency", "EUR"))));
-        when(findObservableProduct.toObservable())
-                .thenReturn(Observable.just(new Document(
-                        Map.of("id", "1",
-                                "price", "1000",
-                                "currency", "EUR"))));
-
         when(productCollection.find()).thenReturn(findObservableProduct);
         when(findObservableUser.toObservable())
                 .thenReturn(Observable.just(new Document(

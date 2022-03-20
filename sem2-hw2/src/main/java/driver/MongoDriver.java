@@ -24,7 +24,7 @@ public class MongoDriver {
         scheduler = Schedulers.from(Executors.newFixedThreadPool(4));
     }
 
-    public Observable<? extends Serializable> addUser(User user) {
+    public Observable<Boolean> addUser(User user) {
         String id = user.getId();
         String currency = user.getCurrency();
         return getUser(id).flatMap(x -> {
@@ -53,7 +53,7 @@ public class MongoDriver {
                 .subscribeOn(scheduler);
     }
 
-    public Observable<? extends Serializable> addProduct(Product product) {
+    public Observable<Boolean> addProduct(Product product) {
         String id = product.getId();
         return getProduct(id).flatMap(user -> {
                     if (user == null) {
